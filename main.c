@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
     char *device_name = "wlan0";  // 패킷을 가져올 인터페이스 이름. 무선 인터넷 NIC
 
     bpf_u_int32 subnet_mask;
-    bpf_u_int32 ip_addr;
+    bpf_u_int32 network_addr;
 
 
     // int	pcap_lookupnet(const char *, bpf_u_int32 *, bpf_u_int32 *, char *);
@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
      */
     pcap_lookupnet(
             device_name,
-            &ip_addr,
+            &network_addr,
             &subnet_mask,
             error_buf
     );

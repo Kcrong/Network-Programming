@@ -32,6 +32,16 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    printf("Network device found: %s\n", device);
-    return 0;
+    char error_buf[PCAP_ERRBUF_SIZE];
+    char *device_name = "wlan0";  // 패킷을 가져올 인터페이스 이름. 무선 인터넷 NIC
+    pcap_t *device;  // pcap_t *pcap_open_live(const char *, int, int, int, char *);
+
+    // pcap_open_live(device, snaplen, PROMISCUOUS, 1000, ebuf);
+    device = pcap_open_live(
+            device_name,
+            100,
+            1,  // Open with Promiscuous mode
+            0,  // Non-Delay
+            error_buf
+    );
 }

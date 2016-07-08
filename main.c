@@ -34,6 +34,25 @@ int main(int argc, char **argv) {
 
     char error_buf[PCAP_ERRBUF_SIZE];
     char *device_name = "wlan0";  // 패킷을 가져올 인터페이스 이름. 무선 인터넷 NIC
+
+    bpf_u_int32 subnet_mask;
+    bpf_u_int32 ip_addr;
+
+
+    // int	pcap_lookupnet(const char *, bpf_u_int32 *, bpf_u_int32 *, char *);
+    // Fail return -1
+    /*
+     * ip_addr = 108736
+     * subnet_mask = 16777215
+     */
+    pcap_lookupnet(
+            device_name,
+            &ip_addr,
+            &subnet_mask,
+            error_buf
+    );
+
+
     pcap_t *device;  // pcap_t *pcap_open_live(const char *, int, int, int, char *);
 
     // pcap_open_live(device, snaplen, PROMISCUOUS, 1000, ebuf);
@@ -44,4 +63,8 @@ int main(int argc, char **argv) {
             0,  // Non-Delay
             error_buf
     );
+
+
+    printf("Break Point");
+
 }

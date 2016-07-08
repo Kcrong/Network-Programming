@@ -8,7 +8,7 @@ INCLUDE_DIRECTORIES(${PCAP_INCLUDE_DIR} INCLUDE ${PCAP_LIBRARY})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 SET (CMAKE_EXE_LINKER_FLAGS -lpcap)
-set(SOURCE_FILES get_device_info.c)
+set(SOURCE_FILES main.c)
 add_executable(network_homework_1 ${SOURCE_FILES})
 
 

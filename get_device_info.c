@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <pcap.h>
+#include <unistd.h>
 
 int main(int argc, char **argv) {
     /*
@@ -25,10 +26,9 @@ int main(int argc, char **argv) {
      *
      */
 
-    /* Find a device */
-    device = pcap_lookupdev(error_buffer);
-    if (device == NULL) {
-        printf("Error finding device: %s\n", error_buffer);
+    // Only Root User
+    if(0 != getuid()) {
+        printf("Need Root Permission\n");
         return 1;
     }
 

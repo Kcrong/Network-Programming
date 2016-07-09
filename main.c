@@ -65,6 +65,25 @@ int main(int argc, char **argv) {
             error_buf
     );
 
+    struct bpf_program compiled_filter;
+
+    // Compile Filter String to bpf_program struct
+    // TCP Packet
+    // int pcap_compile(pcap_t *, struct bpf_program *, const char *, int, bpf_u_int32);
+    pcap_compile(
+            device_handler,
+            &compiled_filter,
+            "tcp",
+            0, // no optimize
+            network_addr
+    );
+
+    // Set Filter
+    pcap_setfilter(
+            device_handler,
+            &compiled_filter
+    );
+
 
     printf("Break Point");
 

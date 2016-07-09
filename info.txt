@@ -7,11 +7,13 @@
 
 /*
  * Good Info:
- * https://wiki.kldp.org/KoreanDoc/html/Libpcap-KLDP/function.html --> pcap 함수에 대한 한글설명
+ * https:// --> pcap 함수에 대한 한글설명
  * http://www.tcpdump.org/pcap.html --> 영문자료. pcap 함수에 대해 자세히 나와있음
  * http://mindnet.tistory.com/entry/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EC%89%BD%EA%B2%8C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-18%ED%8E%B8-IP-Header-IP%ED%97%A4%EB%8D%94-%EA%B5%AC%EC%A1%B0
    --> 패킷 헤더 자료
-*/
+ * http://www.joinc.co.kr/w/Site/Network_Programing/AdvancedComm/pcap_intro --> libpcap 한글 자료 좋음!
+ * http://kama1204.tistory.com/entry/pcap-library --> 인자값 정보가 자세히 나옴, 각 함수 의미 자세히 나옴
+ */
 
     0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1

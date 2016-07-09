@@ -22,6 +22,7 @@ void print_bpf_u_int32(bpf_u_int32 data){
 }
 
 int main(int argc, char **argv) {
+    int i;
 
     // Only Root User
     if(0 != getuid()) {
@@ -30,11 +31,26 @@ int main(int argc, char **argv) {
     }
 
     char error_buf[PCAP_ERRBUF_SIZE];
-    char *device_name = "wlan0";  // 패킷을 가져올 인터페이스 이름. 무선 인터넷 NIC
+
 
     bpf_u_int32 subnet_mask;
     bpf_u_int32 network_addr;
 
+
+    pcap_if_t *alldevs;
+
+    // int pcap_findalldevs(pcap_if_t **alldevsp, char *errbuf);
+    int res = pcap_findalldevs(&alldevs, error_buf);
+
+    if (res == -1) {
+        printf("Error findalldevs:\n%s\n", error_buf);
+        return 1;
+    }
+    else {
+        printf("Device: %s\n", alldevs[0].name);
+        // 패킷을 가져올 인터페이스 이름. 무선 인터넷 NIC
+        char *device_name = alldevs[0].name;
+    }
 
     // int	pcap_lookupnet(const char *, bpf_u_int32 *, bpf_u_int32 *, char *);
     // Fail return -1

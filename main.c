@@ -46,11 +46,17 @@ int main(int argc, char **argv) {
         printf("Error findalldevs:\n%s\n", error_buf);
         return 1;
     }
-    else {
-        printf("Device: %s\n", alldevs[0].name);
-        // 패킷을 가져올 인터페이스 이름. 무선 인터넷 NIC
-        char *device_name = alldevs[0].name;
-    }
+
+
+    // 패킷을 가져올 인터페이스 이름. 무선 인터넷 NIC
+    char device_name[10];
+    strcpy(device_name, alldevs[0].name);
+
+    // Check device name
+    printf("Device: %s\n", alldevs[0].name);
+
+    // Free all list
+    pcap_freealldevs(alldevs);
 
     // int	pcap_lookupnet(const char *, bpf_u_int32 *, bpf_u_int32 *, char *);
     // Fail return -1

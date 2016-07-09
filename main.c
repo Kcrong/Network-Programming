@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
             error_buf
     )) {
         // if Fail
-        printf("lookupnet fail\n");
+        printf("lookupnet fail\n%s\n", error_buf);
         return 1;
     }
 

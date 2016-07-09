@@ -42,12 +42,16 @@ int main(int argc, char **argv) {
      * ip_addr = 108736
      * subnet_mask = 16777215
      */
-    pcap_lookupnet(
+    if(-1 == pcap_lookupnet(
             device_name,
             &network_addr,
             &subnet_mask,
             error_buf
-    );
+    )) {
+        // if Fail
+        printf("lookupnet fail\n");
+        return 1;
+    }
 
     print_bpf_u_int32(network_addr);
     print_bpf_u_int32(subnet_mask);
@@ -79,10 +83,31 @@ int main(int argc, char **argv) {
     );
 
     // Set Filter
-    pcap_setfilter(
+    if(-1 == pcap_setfilter(
             device_handler,
             &compiled_filter
+    )) {
+        printf("Fail setfiler");
+        return 1;
+    }
+
+
+    struct pcap_pkthdr header;
+    const u_char *packet;
+
+    // u_char *  pcap_next (pcap_t *p, struct pcap_pkthdr *h)
+    packet = pcap_next(
+            device_handler,
+            &header
     );
+
+    if (NULL == packet){
+        printf("Fail pcap_next\n");
+        return 1;
+    }
+
+    printf("length = %d\n", header.len);
+
 
 
     printf("Break Point");

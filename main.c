@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <pcap.h>
 #include <unistd.h>
+#include <time.h>
+#include <string.h>
 
 struct data_form {
     unsigned char one;
@@ -20,6 +22,8 @@ void print_bpf_u_int32(bpf_u_int32 data){
 
     printf("%d.%d.%d.%d\n", ptr->one, ptr->two, ptr->three, ptr->four);
 }
+
+void packet_processer(u_char * , const struct pcap_pkthdr *, const u_char *);
 
 int main(int argc, char **argv) {
     int i;
@@ -118,20 +122,32 @@ int main(int argc, char **argv) {
     const u_char *packet;
 
     // u_char *  pcap_next (pcap_t *p, struct pcap_pkthdr *h)
-    packet = pcap_next(
+    pcap_loop(
             device_handler,
-            &header
+            -1,
+            packet_processer,
+            0 // Userdata just 0
     );
 
     if (NULL == packet){
         printf("Fail pcap_next\n");
         return 1;
-    }
+}
 
-    printf("length = %d\n", header.len);
+void packet_processer(u_char *param , const struct pcap_pkthdr *header, const u_char *pkt_data){
+    time_t time;
+    struct tm *local_time;
+    char time_str[16];
+
+    time = header->ts.tv_sec;
+
+    // Edit string for print pretty
+    local_time = localtime(&time);
+    strftime(time_str, sizeof(time_str), "%H:%M:%S", local_time);
+
+    printf("%s,%.6d len:%d\n", time_str, (int)header->ts.tv_usec, header->len);
 
 
 
-    printf("Break Point");
 
 }

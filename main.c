@@ -118,10 +118,6 @@ int main(int argc, char **argv) {
     }
 
 
-    struct pcap_pkthdr header;
-    const u_char *packet;
-
-    // u_char *  pcap_next (pcap_t *p, struct pcap_pkthdr *h)
     pcap_loop(
             device_handler,
             -1,
@@ -129,9 +125,6 @@ int main(int argc, char **argv) {
             0 // Userdata just 0
     );
 
-    if (NULL == packet){
-        printf("Fail pcap_next\n");
-        return 1;
 }
 
 void packet_processer(u_char *param , const struct pcap_pkthdr *header, const u_char *pkt_data){

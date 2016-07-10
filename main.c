@@ -190,7 +190,7 @@ void packet_processer(u_char *param , const struct pcap_pkthdr *header, const u_
     local_time = localtime(&time);
     strftime(time_str, sizeof(time_str), "%H:%M:%S", local_time);
 
-    printf("%s,%.6d len:%d\n", time_str, (int)header->ts.tv_usec, header->len);
+    printf("(%s) %s:%d -> (%s) %s:%d at %s:%.6d\n", pretty_u_int8_t(ether_hdr->ether_shost), src_ip, src_port, pretty_u_int8_t(ether_hdr->ether_dhost), dst_ip, dst_port, time_str, (int)header->ts.tv_usec);
 
 
 

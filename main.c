@@ -9,6 +9,16 @@
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
+#include <arpa/inet.h>
+
+// For ip,tcp header struct
+/*
+ * netinet 에 있는 구조체를 사용하자~!
+ */
+#include <netinet/ip.h> // ip struct define
+#include <netinet/ether.h>
+#include <netinet/tcp.h> // tcp struct define
+#include <stdlib.h>
 
 struct data_form {
     unsigned char one;
@@ -154,6 +164,22 @@ int main(int argc, char **argv) {
 }
 
 void packet_processer(u_char *param , const struct pcap_pkthdr *header, const u_char *pkt_data){
+    int i;
+    struct ip *ip;
+    struct tcphdr *tcp_hdr;
+    struct ether_header *ether_hdr;
+
+    ip = (struct ip *)(pkt_data + sizeof(struct ether_header));
+    tcp_hdr = (struct tcphdr *)(pkt_data + sizeof(struct ether_header)+sizeof(struct ip));
+    ether_hdr = (struct ether_header *)pkt_data;
+
+    // inet_ntoa 는 표준함수가 아니니 주의
+    char *src_ip = inet_ntoa(ip->ip_src);
+    char *dst_ip = inet_ntoa(ip->ip_dst);
+
+    int src_port = ntohs(tcp_hdr->source);
+    int dst_port = ntohs(tcp_hdr->dest);
+
     time_t time;
     struct tm *local_time;
     char time_str[16];

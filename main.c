@@ -79,8 +79,8 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    print_bpf_u_int32(network_addr);
-    print_bpf_u_int32(subnet_mask);
+    printf("Network Addr: %s\n", pretty_bpf_u_int32(network_addr));
+    printf("Subnet Mask: %s\n", pretty_bpf_u_int32(subnet_mask));
 
 
     pcap_t *device_handler;  // pcap_t *pcap_open_live(const char *, int, int, int, char *);

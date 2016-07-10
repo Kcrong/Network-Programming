@@ -17,6 +17,28 @@ struct data_form {
     unsigned char four;
 };
 
+char *pretty_u_int8_t(u_int8_t *data) {
+    int i=0;
+    char *result = (char *)malloc(6);
+    char *tmp = malloc(2);
+
+    memset(result, NULL, 5);
+
+    do{
+        snprintf(tmp, 3, "%.2X", data[i]);
+        strcat(result, tmp);
+        strcat(result, " : ");
+        memset(tmp, '0', strlen(tmp));
+        i++;
+    }while(i<5);
+
+    // For last " : "
+    snprintf(tmp, 3, "%.2X", data[i]);
+    strcat(result, tmp);
+
+    return result;
+}
+
 char *pretty_bpf_u_int32(bpf_u_int32 data){
     struct data_form *ptr=(struct data_form*)&data;
     char *result = malloc(16);

@@ -17,10 +17,14 @@ struct data_form {
     unsigned char four;
 };
 
-void print_bpf_u_int32(bpf_u_int32 data){
+char *pretty_bpf_u_int32(bpf_u_int32 data){
     struct data_form *ptr=(struct data_form*)&data;
+    char *result = malloc(16);
 
-    printf("%d.%d.%d.%d\n", ptr->one, ptr->two, ptr->three, ptr->four);
+    // ___.___.___.___ --> 16 bytes
+    snprintf(result, 16, "%d.%d.%d.%d", ptr->one, ptr->two, ptr->three, ptr->four);
+
+    return result;
 }
 
 void packet_processer(u_char * , const struct pcap_pkthdr *, const u_char *);
